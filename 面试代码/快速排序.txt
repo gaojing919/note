@@ -1,0 +1,71 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<queue>
+#include<algorithm>
+//#include<functional>
+#include<string>
+using namespace std;
+
+
+
+
+
+#include <numeric>
+#include <limits>
+
+using namespace std;
+
+
+void swap(vector<int>&nums, int i, int j){
+	int temp = nums[i];
+	nums[i] = nums[j];
+	nums[j] = temp;
+
+}
+int partition(vector<int>& nums,int left, int right){
+	int pivot = (left + right) / 2;
+	int temp = nums[pivot];
+	swap(nums, pivot, right);
+	int i = left, j = right;
+	while (i < j){
+		while (i <= right&&nums[i] < temp){
+			i++;
+		}
+		while (j >= left&&nums[j] >= temp){
+			j--;
+		}
+		if (i < j){
+			swap(nums, i, j);
+		}			
+	}
+	swap(nums, right, i);
+	return i;
+}
+
+
+void quick_sort(vector<int> &nums, int left, int right){
+
+	int i = partition(nums,left, right);
+	if (i > left){
+		quick_sort(nums, left, i - 1);
+	}
+	if (i <= (right - 1)){
+		quick_sort(nums, i + 1, right);
+	}
+
+}
+
+int main() {
+
+
+	vector<int> nums = { 36};
+	quick_sort(nums, 0, nums.size() - 1);
+	for (auto x : nums){
+		cout << x << "  ";
+	}
+	
+	system("pause");
+	return 0;
+
+}
